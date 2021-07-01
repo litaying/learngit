@@ -215,6 +215,46 @@ git push origin --tags //推送所有标签到远程
 git push origin :refs/tags/v0.9 //删除远程标签
 ```
 
+# 六、自定义Git
+
+## 1、忽略特殊文件
+
+在工作区根目录选创建.gitignore文件
+
+*.py
+
+!*.py
+
+```
+git add -f App.class //-f强制添加
+git check-ignore -v app.class //检查规则
+```
+
+## 2、配置别名
+
+```
+git config --global alias.st status //配置status为st
+```
+
+## 3、搭建git服务器
+
+```
+sudo apt-get install git
+sudo adduser git
+//导入所有用户公钥到/home/git/.ssh/authorized_keys,一行一个
+sudo git init --bare sample.git //进入srv目录创建git仓库sample.git
+//编辑/etc/passwd文件禁止用户登录shell
+//change
+git:x:1001:1001:,,,:/home/git:/bin/bash
+//into
+git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+git clone git@server:/srv/sample.git
+```
+
+方便管理公钥，用[Gitosis](https://github.com/res0nat0r/gitosis)
+
+权限控制，用[Gitolite](https://github.com/sitaramc/gitolite)
+
 参考链接
 
 [Git教程 - 廖雪峰的官方网站 (liaoxuefeng.com)](https://www.liaoxuefeng.com/wiki/896043488029600)
